@@ -1,0 +1,6 @@
+// ingoring some bigger files
+
+node_modules
+tailwind.config.js
+postcss.config.js
+main.css
