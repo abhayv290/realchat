@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="shortcut icon" href="assets/chatcoin-chat-logo.png" type="image/x-icon">
-    <title>TalkBuddy-Your best friend in chat</title>
+    <title>RealChat-Your best friend for online Chating </title>
     <!-- <script src="http://localhost:3000/socket.io/socket.io.js"></script> -->
     <script src="https://kit.fontawesome.com/3e87cae5ed.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../main.css">
@@ -15,10 +15,11 @@
 </head>
 
 <body>
-    <Header>
+    <Header style="position: sticky; top:0; z-index:10">
         <nav class="bg-gray-700 flex justify-between cursor-pointer  text-rose-100">
             <ul class="flex items-center p-5 ">
-                <li class="space-x-2"><i class="fa-solid fa-user-tie fa-2xl"></i><strong>Name</strong></li>
+                <li class="space-x-2"><i class="fa-solid fa-user-tie fa-2xl"></i><strong id="contactname">Name</strong>
+                </li>
             </ul>
             <ul><img src="../assets/chatcoin-chat-logo.png" class="h-10 my-2" alt=""></ul>
 
@@ -27,7 +28,8 @@
                 <li class="space-x-2"><i class="fa-regular fa-bell"></i><span class="max-md:hidden ">Notification</span>
                 </li>
                 <div class="dropdown ">
-                    <li id="btn"> <i class="fa-solid fa-circle-info"></i><span class="max-md:hidden "> More Info</span>
+                    <li id="infobtn"> <i class="fa-solid fa-circle-info"></i><span class="max-md:hidden"> More
+                            Info</span>
                     </li>
                     <div id="menu" class="hidden absolute right-2 px-8 bg-blue-950 rounded-sm">
                         <li>Mute</li>
@@ -40,18 +42,12 @@
 
         </nav>
     </Header>
-    <main class="p-5 md:p-10 space-y-3">
-        <div class="flex justify-start"><i class="fa-solid fa-user-pen"></i>
-            <div id="user1" class="h-20 w-2/5 rounded-t-2xl rounded-br-2xl bg-green-200"></div>
-        </div>
-        <div class="flex justify-end">
-
-            <div id="user2" class="h-20 w-2/5 rounded-t-2xl rounded-bl-2xl bg-blue-300"></div><i
-                class="   fa-solid fa-user-pen"></i>
-        </div>
+    <main style="min-height: 100vh;" id="new-usr" class=" p-5 md:p-10 space-y-3">
 
     </main>
-    <div id="send-container" class="w-full bg-slate-600 absolute bottom-0">
+
+    <div style="position: sticky; bottom: 0; z-index: 10;;" id="send-container"
+        class="w-full bg-slate-600 absolute bottom-0">
         <form action="#" id="send-form" class=" flex justify-center h-14 items-center 
     space-x-8 ">
             <i class="fa-regular fa-face-smile text-yellow-400 text-3xl"></i>
@@ -63,7 +59,7 @@
         </form>
     </div>
 </body>
-<script src="/socket.io/socket.io.js"></script>
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
 <script src="script.js"></script>
 
 <!-- <script src="../index.js"></script> -->

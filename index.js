@@ -1,41 +1,26 @@
-const http = require('http');
-const express = require('express');
-const app = express();
+const io = require('socket.io')(3000);
 
-const path = require('path');
-const cors = require('cors');
-const { Socket } = require('engine.io');
-const port = 3000;
-const server = http.createServer(app);
-const { Server } = require('socket.io');
-app.use(cors());
-
-const io = new Server(server);
-
-
-
-app.use(express.static(path.join(__dirname, '/public')));
-
-app.get('/', (req, res, next) => {
-    res.sendFile(__dirname, '/public/index.html');
-})
 
 
 // ON Connect-Disconnect
-
+const user = {};
 io.on('connection', (socket) => {
 
-    socket.on('user-message', (message) => {
-        console.log('new message ' + message);
-        io.emit("message", message);
+    socket.on('new-user-joined', (name) => {
+        user[socket.id] = name;
+        console.log(name, ' joined');
+        socket.broadcast.emit("User-Joined", name);
     })
 
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
+    socket.on('user-message', (message) => {
+        console.log('user-message', message);
+        socket.broadcast.emit('receive', { message: message, name: user[socket.id] });
     });
+
+    socket.on('disconnect', message => {
+        socket.broadcast.emit('leave', user[socket.id]);
+        delete user[socket.id];
+    })
 });
 
 
-server.listen(port, () => {
-    console.log(`listening on port http://localhost:${port}`);
-})
